@@ -50,7 +50,9 @@ function renderProducts() {
     </div>
 
 
-    <button class="add-to-cart-button button-primary" data-product-id="${product.id}">
+    <button class="add-to-cart-button button-primary"
+    data-product-name ="${product.name}"
+    data-product-id="${product.id}">
     Add to Cart
     </button>
     </div>
@@ -63,3 +65,15 @@ function renderProducts() {
 
 
 renderProducts();
+
+document.querySelectorAll('.add-to-cart-button')
+  .forEach((button) =>{
+    button.addEventListener('click',() =>{
+      console.log(button.dataset)
+      cart.push({productname :button.dataset.productName,
+        productID:button.dataset.productId});
+      
+      console.log(cart);
+    });
+    
+});
