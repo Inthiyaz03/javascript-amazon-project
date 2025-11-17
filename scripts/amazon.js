@@ -1,6 +1,7 @@
-import {cart} from '../data/cart.js';
+import { cart, addTocart } from '../data/cart.js';
 import { products } from '../data/products.js';
-
+import { formatCurrency } from './utils/pirceCalculation.js';
+updateQuantity();
 const productsGrid = document.querySelector(".products-grid");
 
 
@@ -30,7 +31,7 @@ function renderProducts() {
 
 
     <div class="product-price">
-    $${(product.priceCents / 100).toFixed(2)}
+    $${formatCurrency(product.priceCents)}
     </div>
 
 
@@ -70,37 +71,22 @@ function renderProducts() {
 
 renderProducts();
 
+function updateQuantity(){
+let cartQuantity = 0;
+  cart.forEach((cartItem) => {
+    cartQuantity += cartItem.quantity;
+  })
+  document.querySelector('.js-cart-quantity')
+  .innerHTML = cartQuantity;
+}
+
 document.querySelectorAll('.add-to-cart-button')
   .forEach((button) =>{
     button.addEventListener('click',() =>{
-      const productId = button.dataset.productId;
-      const productName = button.dataset.productName;
-      let matchingItem;
-      cart.forEach((item)=>{
-        if(productId === item.productId){
-          matchingItem = item;
-        }
+      
+      addTocart(button);
+      updateQuantity();
+      
       });
-      const quantitySelect = button.closest('.product-container')
-      .querySelector('select');
-      const selectedQuantity = parseInt(quantitySelect.value);
-      if(matchingItem){
-        matchingItem.quantity += selectedQuantity;
-      }else{
-         cart.push(
-          {
-            productId : productId,
-            productName : productName,
-            quantity:selectedQuantity
-        }
-      );
-    }
-    let cartQuantity = 0;
-    cart.forEach((item) => {
-      cartQuantity += item.quantity;
-    })
-    document.querySelector('.js-cart-quantity')
-    .innerHTML = cartQuantity;
-    });
     
 });
