@@ -20,3 +20,10 @@ export function addTocart(button) {
 
   localStorage.setItem("cart", JSON.stringify(cart));
 }
+
+export function removeFromCart(productId) {
+  cart = cart.filter(item => item.productId !== productId);
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+
