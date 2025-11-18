@@ -21,7 +21,7 @@ matchingProduct = product;
 cartSummaryHtml += `
 <div class="cart-item-container">
     <div class="delivery-date">
-      Delivery date: Tuesday, June 21
+      Delivery by ${afterNineeDaysDate}
     </div>
 
     <div class="cart-item-details-grid">
@@ -108,5 +108,27 @@ document.querySelectorAll('.js-delete-quantity')
     removeFromCart(link.dataset.productId);
     location.reload();
     
+  });
+});
+
+
+document.querySelectorAll('.delivery-option-input').forEach((radio) => {
+  radio.addEventListener('change', () => {
+    const productId = radio.name; // product id is used as radio group name
+
+    const selectedOption = document.querySelector(
+      `input[name="${productId}"]:checked`
+    );
+
+    const selectedDate = selectedOption
+      .closest('.delivery-option')
+      .querySelector('.delivery-option-date').textContent;
+
+    // Update the delivery date text
+    const deliveryDateLabel = selectedOption
+      .closest('.cart-item-container')
+      .querySelector('.delivery-date');
+
+    deliveryDateLabel.textContent = `Delivery by: ${selectedDate}`;
   });
 });
