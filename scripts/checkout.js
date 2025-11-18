@@ -1,6 +1,11 @@
 import { cart, removeFromCart } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/pirceCalculation.js";
+import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
+
+const tomorrowDate = dayjs().add(1, 'day').format('dddd, MMMM D');
+const afterThreeDaysDate = dayjs().add(3, 'day').format('dddd, MMMM D');
+const afterNineeDaysDate = dayjs().add(9, 'day').format('dddd, MMMM D');
 
 let cartSummaryHtml = '';
 cart.forEach((cartItem) => {
@@ -53,7 +58,7 @@ cartSummaryHtml += `
             name="${matchingProduct.id}">
           <div>
             <div class="delivery-option-date">
-              Tuesday, June 21
+              ${afterNineeDaysDate}
             </div>
             <div class="delivery-option-price">
               FREE Shipping
@@ -66,7 +71,7 @@ cartSummaryHtml += `
             name="${matchingProduct.id}">
           <div>
             <div class="delivery-option-date">
-              Wednesday, June 15
+              ${afterThreeDaysDate}
             </div>
             <div class="delivery-option-price">
               $4.99 - Shipping
@@ -79,7 +84,7 @@ cartSummaryHtml += `
             name="${matchingProduct.id}">
           <div>
             <div class="delivery-option-date">
-              Monday, June 13
+              ${tomorrowDate}
             </div>
             <div class="delivery-option-price">
               $9.99 - Shipping
